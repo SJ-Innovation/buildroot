@@ -203,6 +203,7 @@ menu "Development tools"
 	source "package/tig/Config.in"
 	source "package/tree/Config.in"
 	source "package/unifdef/Config.in"
+	source "package/xvcserver/Config.in"
 	source "package/yasm/Config.in"
 endmenu
 

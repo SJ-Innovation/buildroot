@@ -1,0 +1,10 @@
+# /etc/default/xvcserver
+
+# Name of the UIO device to use
+UIO_NAME="uio_xvc"
+
+# TCP port to listen on
+XVC_PORT="2542"
+
+# Any extra command line options for debugging or tuning
+XVC_OPTS=""

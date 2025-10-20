@@ -1,0 +1,22 @@
+config BR2_PACKAGE_XVCSERVER
+	bool "xvcserver"
+	help
+	  XVCServer is a Xilinx Virtual Cable daemon for FPGA Debug
+
+if BR2_PACKAGE_XVCSERVER
+
+config BR2_PACKAGE_XVCSERVER_UIO_NAME
+    string "UIO device name"
+    default "uio_xvc"
+    help
+      The name of the UIO device to use (from /sys/class/uio/uio*/name).
+      The program will search for the corresponding /dev/uioX entry at runtime.
+
+config BR2_PACKAGE_XVCSERVER_PORT
+    int "XVC server TCP port"
+    default 2542
+    range 1 65535
+    help
+      TCP port the XVC server listens on.
+
+endif

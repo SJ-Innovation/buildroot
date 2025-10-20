@@ -1,0 +1,35 @@
+#!/bin/sh
+
+
+
+case "$1" in
+	start)
+		
+		[ -r /etc/defaults/xvcserverd ] && . /etc/defaults/xvcserverd
+		: "${UIO_NAME:=xvc_uio}"
+		: "${XVC_PORT:=2542}"
+		
+		UIO_DEV=$(/usr/bin/find_uio_by_name "$UIO_NAME" 2>/dev/null)
+
+		echo "Starting XVCServer Daemon for UIO_NAME=$UIO_NAME, XVC_PORT:$XVC_PORT == UIO_DEV:$UIO_DEV"
+		start-stop-daemon -S -b -q -m -p /var/run/xvcserverd.pid -x /usr/bin/xvcserver -- -d $UIO_DEV -p $XVC_PORT $XVC_OPTS
+		# -d uio0 -p 2542
+		exit $?
+		;;
+
+	stop)
+		echo "Stopping XVCServer Daemon"
+		start-stop-daemon -K -q -p /var/run/xvcserverd.pid 2>/dev/null
+		exit $?
+		;;
+
+	restart)
+		$0 stop
+		sleep 1
+		$0 start
+		;;
+
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
